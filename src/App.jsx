@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Forms from './Forms'
-import ShowForms from './ShowForms';
-import MapForms from './MapForms';
 import { Container, Row, Col } from 'react-bootstrap';
+import Forms from './Components/Forms';
+import MapForms from './Components/MapForms';
 
 function App() {
   const [forms, setForms] = useState([])
