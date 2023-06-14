@@ -34,7 +34,7 @@ function Forms(props) {
   return (
     <Container className='p-5'>
     <Form onSubmit={handleSubmit}>
-        <Col xs={5}>
+        <div className='col'>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Name</Form.Label>
                 <Form.Control type="text" 
@@ -44,9 +44,9 @@ function Forms(props) {
                             value={dataForm.name}
                             onChange={handleChange} />
             </Form.Group>
-        </Col>
+        </div>
         
-        <Col xs={5}>
+        <div className='col'>
         <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" 
@@ -56,9 +56,9 @@ function Forms(props) {
                         value={dataForm.email}
                         onChange={handleChange} />
         </Form.Group>
-        </Col>
+        </div>
 
-        <Col xs={5}>
+        <div className='col'>
         <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>GEN</Form.Label>
             <Form.Control type="text" 
@@ -68,7 +68,7 @@ function Forms(props) {
                         value={dataForm.gen}
                         onChange={handleChange} />
         </Form.Group>
-        </Col>
+        </div>
         
         <Button variant="primary" type="submit">
             Submit

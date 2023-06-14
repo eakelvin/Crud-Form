@@ -1,9 +1,30 @@
 import React from 'react'
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import EditForm from './EditForm';
 
 function ShowForms(props) {
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
   return (
     <>
+
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Edit User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <EditForm editUser={props.editUser} form={props.form} closeModal={handleClose} />
+            </Modal.Body>
+            <Modal.Footer>
+                
+            </Modal.Footer>
+        </Modal>
         <Card className='mb-3 mx-2' style={{ width: '16rem' }}>
             <Card.Body>
             <Card.Title>Students Details</Card.Title>
@@ -12,8 +33,8 @@ function ShowForms(props) {
                     <li>Email - {props.form.email}</li>
                     <li>Gen - {props.form.gen}</li>
                 </ul>
-            <Card.Link href="#">Edit</Card.Link>
-            <Card.Link href="#">Delete</Card.Link>
+            <button onClick={handleShow}>Edit</button>
+            <button onClick={() => props.deleteUser(props.form.id)}>Delete</button>
             </Card.Body>
         </Card>
   </>
