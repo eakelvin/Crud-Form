@@ -4,23 +4,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Forms from './Components/Forms';
 import MapForms from './Components/MapForms';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const defaultForms = [
     {
-      id:1,
+      id:uuidv4(),
       name: "David",
       email:"dave@gmail.com",
       gen:24
     },
     {
-      id:2,
+      id:uuidv4(),
       name: "Jeff",
       email:"jeff@gmail.com",
       gen:24
     },
     {
-      id:3,
+      id:uuidv4(),
       name: "Manuel",
       email:"man@gmail.com",
       gen:23
@@ -30,11 +31,12 @@ function App() {
   const [forms, setForms] = useState(defaultForms)
 
   const addForm = (form) => {
-    setForms([...forms, form])
+    const formWithId = { ...form, id: uuidv4() };
+    setForms([...forms, formWithId])
   }
 
-  function deleteUser(id) {
-    setForms(forms.filter((form) => form.id !== id))
+  function deleteUser(formId) {
+    setForms(forms.filter((form) => form.id !== formId))
   }
 
   function editUser(id, updatedForm) {

@@ -11,6 +11,11 @@ function ShowForms(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const handleDelete = (e) => {
+        e.preventDefault();
+        props.deleteUser(props.form.id);
+      };
+
   return (
     <>
 
@@ -34,7 +39,7 @@ function ShowForms(props) {
                     <li>Gen - {props.form.gen}</li>
                 </ul>
             <button onClick={handleShow}>Edit</button>
-            <button onClick={() => props.deleteUser(props.form.id)}>Delete</button>
+            <button onClick={handleDelete}>Delete</button>
             </Card.Body>
         </Card>
   </>
