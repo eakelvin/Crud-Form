@@ -32,6 +32,13 @@ const userSlice = createSlice({
       const {id, updatedUser} = action.payload
       const userIndex = state.findIndex(user => user.id === id)
       state[userIndex] = {...state[userIndex], ...updatedUser}
+    },
+    deleteUser: (state, action) => {
+      const {id} = action.payload
+      const updatedUser = state.find(user => user.id == id)
+      if (updatedUser) {
+        return state.filter(f=> f.id !== id)
+      }
     }
 
   }
@@ -39,5 +46,5 @@ const userSlice = createSlice({
 }) 
    
 
-export const {addUser, editUser} = userSlice.actions;
+export const {addUser, editUser, deleteUser} = userSlice.actions;
 export default userSlice.reducer

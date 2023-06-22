@@ -4,16 +4,19 @@ import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import EditForm from './EditForm';
+import { deleteUser } from '../Store/UserReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ShowForms(props) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const users = useSelector(state => state.users)
+    const disptach = useDispatch()
 
-    const handleDelete = (e) => {
-        e.preventDefault();
-        props.deleteUser(props.form.id);
+    const handleDelete = (id) => {
+        disptach(deleteUser({id: id}))
       };
 
   return (
@@ -39,7 +42,7 @@ function ShowForms(props) {
                     <li>Gen - {props.form.gen}</li>
                 </ul>
             <button onClick={handleShow}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={() => handleDelete(props.form.id)}>Delete</button>
             </Card.Body>
         </Card>
   </>
