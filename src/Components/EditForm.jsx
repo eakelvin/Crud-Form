@@ -1,40 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { editUser } from '../Store/UserReducer';
 
-class EditForm extends Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          id: props.form.id,
-          name: props.form.name,
-          email: props.form.email,
-          gen: props.form.gen,
-        };
-      }
-    
-      handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({[name]: value});
-      }
+function EditForm(props) {
+  const dispatch = useDispatch()
+  const users = useSelector((state) => state.users)
 
-      handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.editUser(this.state.id, this.state)
-        this.setState({
-            name: "",
-            email: "",
-            gen: ""
-        })
-        console.log(this.state);
-        this.props.closeModal()
-      }
+      const [formData, setFormData] = useState ({
+        id: props.form.id,
+        name: props.form.name,
+        email: props.form.email,
+        gen: props.form.gen,
+      });
+      const {id, name, email, gen} = formData
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevState) => ({
+        ...prevState, 
+        [name]: value
+      }))
+    }
 
-    render() {
-        return (
-        <>
-            <Form onSubmit={this.handleSubmit}>
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      let updatedForm = {
+        id:props.form.id,
+        name,
+        email,
+        gen
+      }
+      dispatch(editUser({ id: props.form.id, updatedUser:updatedForm }))
+      props.closeModal()
+    }
+
+      return (
+      <>
+            <Form onSubmit={handleSubmit}>
                 <div className='col'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Name</Form.Label>
@@ -42,8 +46,8 @@ class EditForm extends Component {
                             placeholder="Enter name"
                             required 
                             name='name'
-                            value={this.state.name}
-                            onChange={this.handleChange} />
+                            value={formData.name}
+                            onChange={handleChange} />
                 </Form.Group>
                 </div>
         
@@ -54,8 +58,8 @@ class EditForm extends Component {
                               placeholder="Enter email"
                               required
                               name='email'
-                              value={this.state.email}
-                              onChange={this.handleChange} />
+                              value={formData.email}
+                              onChange={handleChange} />
               </Form.Group>
               </div>
 
@@ -66,8 +70,8 @@ class EditForm extends Component {
                               placeholder="GEN?"
                               required
                               name='gen'
-                              value={this.state.gen}
-                              onChange={this.handleChange} />
+                              value={formData.gen}
+                              onChange={handleChange} />
               </Form.Group>
               </div>
               <Button type='submit' variant="primary">Save Changes</Button>
@@ -77,6 +81,5 @@ class EditForm extends Component {
         </>
         );
     }
-}
 
 export default EditForm;

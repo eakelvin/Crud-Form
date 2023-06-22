@@ -3,8 +3,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Container, Col } from 'react-bootstrap';
+import { addUser } from '../Store/UserReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 function Forms(props) {
+    const users = useSelector((state) => state.users)
+    const dispatch = useDispatch()
+
     const [dataForm, setDataForm] = useState({
         name: "",
         email: "",
@@ -23,7 +29,15 @@ function Forms(props) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        props.newUser(dataForm)
+        // props.newUser(dataForm)
+        // dispatch(addUser({id: users[users.length - 1].id + 1, dataForm}))
+        const newUser = {
+            name: dataForm.name,
+            email: dataForm.email,
+            gen: dataForm.gen,
+            id: uuidv4()
+        }
+        dispatch(addUser(newUser))
         setDataForm({
             name: "",
             email: "",

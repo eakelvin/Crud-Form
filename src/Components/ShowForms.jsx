@@ -24,7 +24,7 @@ function ShowForms(props) {
                 <Modal.Title>Edit User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <EditForm editUser={props.editUser} form={props.form} closeModal={handleClose} />
+                <EditForm form={props.form} closeModal={handleClose} />
             </Modal.Body>
             <Modal.Footer>
                 
